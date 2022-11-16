@@ -1,0 +1,11 @@
+{
+  "name": "webflow-snap",
+  "version": "1.0.0",
+  "description": "A GitHub Action to create a snapshot of Webflow sites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "TravLRD",
+  "license": "MIT"
+}
