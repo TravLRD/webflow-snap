@@ -1,6 +1,6 @@
 import { _pipe_ } from "./pipe";
 
-export const if_ = (transforms, branches) => async (value) => {
+export const _if_ = (transforms, branches) => async (value) => {
     if (await _pipe_(transforms)(value)) {
         return await branches.then?.(value) ?? value;
     } else {
@@ -8,15 +8,17 @@ export const if_ = (transforms, branches) => async (value) => {
     }
 };
 
-export const when_ = if_;
+export const _when_ = _if_;
 
-export const unless_ = (transforms, branches) => async (value) => {
+export const _ifNot_ = (transforms, branches) => async (value) => {
     if (!await _pipe_(transforms)(value)) {
         return await branches.then?.(value) ?? value;
     } else {
         return await branches.else?.(value) ?? value;
     }
 };
+
+export const _unless_ = _ifNot_;
 
 export const is = (a) => (b) => {
     return a === b;

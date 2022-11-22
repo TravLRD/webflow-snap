@@ -1,16 +1,16 @@
 import { describe, test } from "vitest";
 import { expectToBe } from "../lib/test-helpers";
-import { and, if_, is, isFalse, isNot, isTrue, not } from "./boolean";
+import { and, _if_, is, isFalse, isNot, isTrue, not } from "./boolean";
 import { increaseBy } from "./increaseBy";
 import { _pipe_ } from "./pipe";
 
 
 
-describe("if_ function", () => {
+describe("_if_ function", () => {
 
     test("true", _pipe_([
         42,
-        if_([is(42)], {
+        _if_([is(42)], {
             then: increaseBy(1),
         }),
         expectToBe(43),
@@ -18,7 +18,7 @@ describe("if_ function", () => {
 
     test("false", _pipe_([
         42,
-        if_([is(420)], {
+        _if_([is(420)], {
             then: increaseBy(1),
         }),
         expectToBe(42),
