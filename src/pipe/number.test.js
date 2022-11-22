@@ -1,26 +1,60 @@
-import { describe, test } from "vitest";
+import { describe, expect, test } from "vitest";
 import { expectToBe } from "../lib/test-helpers";
-import { isLt } from "./number";
+import { add, assertValidNumber, isGt, isGte, isLt, isLte, substract } from "./number";
 import { _pipe_ } from "./pipe";
 
+const testWithInvalidParams = (infixOperator) => {
+    test("faulty edge cases", () => {
+        expect(() => infixOperator(42)(undefined)).toThrow();
+        expect(() => infixOperator(42)(NaN)).toThrow();
+        expect(() => infixOperator(42)("42")).toThrow();
+        expect(() => infixOperator(undefined)(42)).toThrow();
+        expect(() => infixOperator(NaN)(42)).toThrow();
+        expect(() => infixOperator("42")(42)).toThrow();
+    });
+};
+
+test("assertValidNumber function", () => {
+    expect(() => assertValidNumber(undefined)).toThrow();
+    expect(() => assertValidNumber(NaN)).toThrow();
+    expect(() => assertValidNumber("42")).toThrow();
+    expect(assertValidNumber(42)).toBe(42);
+});
+
 describe("isLt function", () => {
+    test("less   ", _pipe_([42, isLt(43), expectToBe(true),]));
+    test("equal  ", _pipe_([42, isLt(42), expectToBe(false),]));
+    test("greater", _pipe_([42, isLt(41), expectToBe(false),]));
+    testWithInvalidParams(isLt);
+});
 
-    test("less", _pipe_([
-        42,
-        isLt(43),
-        expectToBe(true),
-    ]));
+describe("isLte function", () => {
+    test("less   ", _pipe_([42, isLte(43), expectToBe(true),]));
+    test("equal  ", _pipe_([42, isLte(42), expectToBe(true),]));
+    test("greater", _pipe_([42, isLte(41), expectToBe(false),]));
+    testWithInvalidParams(isLte);
+});
 
-    test("equal", _pipe_([
-        42,
-        isLt(42), // for this to work, the next test also has to pass
-        expectToBe(false),
-    ]));
+describe("isGt function", () => {
+    test("less   ", _pipe_([42, isGt(43), expectToBe(false),]));
+    test("equal  ", _pipe_([42, isGt(42), expectToBe(false),]));
+    test("greater", _pipe_([42, isGt(41), expectToBe(true),]));
+    testWithInvalidParams(isGt);
+});
 
-    test("greater", _pipe_([
-        42,
-        isLt(41), // for this to work, the next test also has to pass
-        expectToBe(false),
-    ]));
+describe("isGte function", () => {
+    test("less   ", _pipe_([42, isGte(43), expectToBe(false),]));
+    test("equal  ", _pipe_([42, isGte(42), expectToBe(true),]));
+    test("greater", _pipe_([42, isGte(41), expectToBe(true),]));
+    testWithInvalidParams(isGte);
+});
 
+describe("add function", () => {
+    test("add", _pipe_([42, add(43), expectToBe(85),]));
+    testWithInvalidParams(add);
+});
+
+describe("substract function", () => {
+    test("substract", _pipe_([42, substract(43), expectToBe(-1),]));
+    testWithInvalidParams(substract);
 });

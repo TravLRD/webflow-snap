@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { expectToBe, expectToEqual } from "../lib/test-helpers";
 import { getFirstElement, getLastElement, getNthElement, reverse, _map_ } from "./array";
-import { increaseBy } from "./increaseBy";
+import { add } from "./number";
 import { _pipe_ } from "./pipe";
 
 
@@ -35,13 +35,13 @@ describe("_map_ function", () => {
 
     test("maps 3 element array", _pipe_([
         [42, 43, 44],
-        _map_([increaseBy(1)]),
+        _map_([add(1)]),
         expectToEqual([43, 44, 45]),
     ]));
 
     test("creates new immutable array", () => {
         const array = [42, 43, 44];
-        const newArray = _map_([increaseBy(1)])(array);
+        const newArray = _map_([add(1)])(array);
         expect(array).toEqual([42, 43, 44]);
         expect(() => mutate(newArray)).toThrow();
     });

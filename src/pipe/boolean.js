@@ -1,5 +1,13 @@
 import { _pipe_ } from "./pipe";
 
+export const assertBoolean = (any) => {
+    if (typeof any !== "boolean") {
+        throw Error(`Assertion failed: expected boolean, got ${typeof any}.`);
+    }
+
+    return any;
+};
+
 export const _if_ = (transforms, branches) => async (value) => {
     if (await _pipe_(transforms)(value)) {
         return await branches.then?.(value) ?? value;
@@ -7,8 +15,6 @@ export const _if_ = (transforms, branches) => async (value) => {
         return await branches.else?.(value) ?? value;
     }
 };
-
-export const _when_ = _if_;
 
 export const _ifNot_ = (transforms, branches) => async (value) => {
     if (!await _pipe_(transforms)(value)) {
@@ -28,10 +34,7 @@ export const isNot = (a) => (b) => {
     return a !== b;
 };
 
-export const equals = (a) => (b) => {
-    return a == b;
-};
-
+/** @deprecated */
 export const not = (a) => {
     return !a;
 };
@@ -53,3 +56,11 @@ export const isFalse = (a) => {
 };
 
 export const isNotTrue = isFalse;
+
+
+
+export const isObject = (value) => value !== null && typeof value === 'object';
+
+export const isObjectLiteral = (value) => {
+    return isObject(value) && !Array.isArray(value);
+}

@@ -1,9 +1,14 @@
-import { ifUndefThen } from "./assert";
-import { _pipe_ } from "./pipe";
+export const assertString = (any) => {
+    if (typeof any !== "string") {
+        throw Error(`Assertion failed: expected string, got ${typeof any}.`);
+    }
 
-export const format = (template) => (value) => {
-    const valueString = typeof value === "object" ? JSON.stringify(value) : value;
-    return template.replace("{}", valueString);
+    return any;
+}
+
+export const format = (/** @type string */ template) => (any) => {
+    const valueString = typeof any === "object" ? JSON.stringify(any) : any;
+    return assertString(template).replace("{}", valueString);
 };
 
 export const interpolate = format;

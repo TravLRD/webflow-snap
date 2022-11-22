@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { _compose_, _pipe_ } from "./pipe";
+import { _compose_, _copy_, _paste_, _pipe_ } from "./pipe";
 import { promise, expectToBe, expectToEqual } from "../lib/test-helpers";
-import { increaseBy } from "./increaseBy";
 import { is } from "./boolean";
 import { fillIntoTemplate } from "./string";
+import { add, substract } from "./number";
 
 describe("pipe_ function", () => {
 
@@ -12,12 +12,12 @@ describe("pipe_ function", () => {
         expectToBe(42),
     ]));
 
-    test("awaits promise value", _pipe_([
+    test("awaits promise", _pipe_([
         promise(42),
         expectToBe(42),
     ]));
 
-    test("awaits array of promise values", _pipe_([
+    test("awaits array of promises", _pipe_([
         [promise(42), promise(43)],
         expectToEqual([42, 43]),
     ]));
@@ -25,7 +25,7 @@ describe("pipe_ function", () => {
     test("works on stack", _pipe_([
         42,
         1,
-        increaseBy,
+        add,
         expectToBe(43),
     ]));
 
@@ -37,6 +37,14 @@ describe("pipe_ function", () => {
             },
         ])()).rejects.toBe("Error");
     });
+
+    test("copy & paste", _pipe_([
+        42,
+        _copy_,
+        43,
+        _paste_,
+        expectToBe(42),
+    ]));
 });
 
 describe("compose_ function", () => {

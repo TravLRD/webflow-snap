@@ -1,7 +1,8 @@
-import { reverse } from "./array";
+import { getLastElement, reverse } from "./array";
 
 export const _pipe_ = (/** any[] */ oldStack) => async (value) => {
     const newStack = [value];
+    let clipboard = undefined;
 
     for (const element of oldStack) {
 
@@ -14,8 +15,18 @@ export const _pipe_ = (/** any[] */ oldStack) => async (value) => {
 
             const transform = newStack.pop();
 
+            if (transform === _paste_) {
+                newStack.push(clipboard);
+                continue;
+            }
+
             if (typeof newStack[newStack.length - 1] === "function") {
                 break;
+            }
+
+            if (transform === _copy_) {
+                clipboard = getLastElement(newStack);
+                continue;
             }
 
             const value = newStack.pop();
@@ -31,6 +42,12 @@ export const _pipe_ = (/** any[] */ oldStack) => async (value) => {
 
 
 export const _compose_ = (transforms) => _pipe_(reverse(transforms));
+
+
+
+export const _copy_ = (any) => any;
+
+export const _paste_ = (any) => any;
 
 
 

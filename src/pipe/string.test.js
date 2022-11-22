@@ -32,10 +32,10 @@ describe("fillIntoTemplate function", () => {
 });
 
 
-describe("captureMatches function", () => {
+// describe("captureMatches function", () => {
 
-    test("returns matches with position", _pipe_([
+//     test("returns matches with position", _pipe_([
 
-    ]));
+//     ]));
 
-});
+// });
