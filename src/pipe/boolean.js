@@ -21,7 +21,7 @@ export const _ifNot_ = (transforms, branches) => async (value) => {
 export const _unless_ = _ifNot_;
 
 export const is = (a) => (b) => {
-    return a === b;
+    return Object.is(a, b);
 };
 
 export const isNot = (a) => (b) => {
