@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { expectToBe, expectToEqual } from "../lib/test-helpers";
-import { getFirstElement, reverse, _map_ } from "./array";
+import { getFirstElement, getLastElement, getNthElement, reverse, _map_ } from "./array";
 import { increaseBy } from "./increaseBy";
 import { _pipe_ } from "./pipe";
 
@@ -50,8 +50,22 @@ describe("_map_ function", () => {
 
 
 
+test("getNthElement function", _pipe_([
+    [42, 43, 44],
+    getNthElement(1),
+    expectToBe(43),
+]));
+
 test("getFirstElement function", _pipe_([
-    [42],
+    [42, 43, 44],
     getFirstElement,
     expectToBe(42),
 ]));
+
+test("getLastElement function", _pipe_([
+    [42, 43, 44],
+    getLastElement,
+    expectToBe(44),
+]));
+
+

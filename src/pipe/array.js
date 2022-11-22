@@ -16,6 +16,19 @@ export const _map_ = (stack) => (array) => {
 
 
 
-export const getFirstElement = (value) => {
-    return value[0];
+export const getNthElement = (index) => (array) => {
+    if (index < 0) {
+        index += array.length;
+    }
+
+    return array[index];
 }
+
+export const getFirstElement = (array) => {
+    return array[0];
+}
+
+export const getLastElement = (array) => {
+    return array[array.length - 1];
+}
+
