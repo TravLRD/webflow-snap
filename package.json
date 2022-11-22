@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A GitHub Action to create a snapshot of Webflow sites.",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "vitest watch",
     "coverage": "vitest run --coverage",
